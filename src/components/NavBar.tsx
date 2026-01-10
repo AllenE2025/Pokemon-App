@@ -2,7 +2,7 @@ import "../App.css";
 
 function NavBar() {
   return (
-    <div className="text-blue-200 fixed top-0 left-0 w-full flex justify-evenly py-2 backdrop-blur bg-black/20">
+    <div className="z-50 text-white fixed top-0 left-0 w-full flex justify-evenly py-2 backdrop-blur bg-red-600/90 border-b-4 border-black">
       <button className="transition-all hover:scale-105 font-medium hover:cursor-pointer">
         Home
       </button>

@@ -4,10 +4,10 @@ import Pokemon from "./components/Pokemon";
 
 function App() {
   return (
-    <div className="min-h-screen bg-neutral-900 p-15">
+    <div className="text-center min-h-screen bg-center" style={{backgroundImage: "url('../public/pokemon-bg-2.jpg')"}}>
       <NavBar />
 
-      <h1 className="text-red-300 font-semibold text-4xl">
+      <h1 className="font-bold text-4xl pt-20">
         Welcome To Pokemon App
       </h1>
       <Pokemon />
