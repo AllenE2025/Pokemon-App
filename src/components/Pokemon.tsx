@@ -1,6 +1,7 @@
 import "../App.css";
 
 import { useEffect, useState } from "react";
+import PokemonSkeleton from "./PokemonSkeleton";
 
 type Pokemon = {
   name: string;
@@ -85,8 +86,8 @@ function Pokemon() {
     fetchPokemons();
   }, []);
 
-  if (loading)
-    return <p className="text-3xl font-semibold py-10">Loading Pokemon...</p>;
+  // if (loading)
+  //   return <p className="text-3xl font-semibold py-10">Loading Pokemon...</p>;
 
   return (
     <div className="place-items-center">
@@ -95,40 +96,61 @@ function Pokemon() {
       <form onSubmit={(e) => e.preventDefault()}>
         <input
           type="text"
-          className="text-center border-2 rounded-md mb-10 py-2 px-8 shadow-lg"
+          className="text-center border-2 rounded-md mb-10 py-2 px-8 shadow-lg
+           transition-all duration-300 ease-out
+           focus:ring-2 focus:ring-red-500
+           focus:scale-[1.02]
+           outline-none
+          "
           placeholder="Search for pokemon"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
         ></input>
       </form>
-      {filteredPokemons.length === 0 ? (
-        <p className="font-semibold">No Pokemon Found</p>
+
+      {loading ? (
+        <div>
+          <p className="mb-10 font-semibold text-xl">Loading Pokemon...</p>
+          <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
+            {Array.from({ length: 20 }).map((_, i) => (
+              <PokemonSkeleton key={i} />
+            ))}
+          </ul>
+        </div>
+      ) : filteredPokemons.length === 0 ? (
+        <p className="font-semibold text-xl">No Pokemon Found</p>
       ) : (
-        <ul className="grid grid-cols-5 gap-6">
-          {filteredPokemons.map((pokemon) => {
-            const mainType = pokemon.types?.[0] ?? "normal";
-            const bgColor = TYPE_COLORS[mainType];
+        <div>
+          <p className="mb-10 font-semibold text-xl">
+            {filteredPokemons.length} Pokemons Listed
+          </p>
+          <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
+            {filteredPokemons.map((pokemon) => {
+              const mainType = pokemon.types?.[0] ?? "normal";
+              const bgColor = TYPE_COLORS[mainType];
 
-            return (
-              <li
-                key={pokemon.name}
-                className={`active:scale-95 p-8 border-2 rounded-md place-items-center transition hover:scale-105 shadow-lg hover:shadow-xl ${bgColor}`}
-              >
-                <img
-                  src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${
-                    pokemon.url.split("/").filter(Boolean).pop() ?? "0"
-                  }.png`}
-                  alt={pokemon.name}
-                  loading="lazy"
-                />
+              return (
+                <li
+                  key={pokemon.name}
+                  className={`
+                    active:scale-95 p-2 h-45 w-45 border-2 rounded-md place-items-center transition hover:scale-105 shadow-lg hover:shadow-xl ${bgColor}`}
+                >
+                  <img
+                    src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${
+                      pokemon.url.split("/").filter(Boolean).pop() ?? "0"
+                    }.png`}
+                    alt={pokemon.name}
+                    loading="lazy"
+                  />
 
-                <p className="capitalize font-semibold">{pokemon.name}</p>
+                  <p className="capitalize font-semibold">{pokemon.name}</p>
 
-                <div className="capitalize">{pokemon.types?.join(" / ")}</div>
-              </li>
-            );
-          })}
-        </ul>
+                  <div className="capitalize">{pokemon.types?.join(" / ")}</div>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
       )}
     </div>
   );
