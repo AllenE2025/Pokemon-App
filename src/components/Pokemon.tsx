@@ -2,11 +2,13 @@ import "../App.css";
 
 import { useEffect, useState } from "react";
 import PokemonSkeleton from "./PokemonSkeleton";
+import { Icon } from "@iconify/react";
 
 type Pokemon = {
   name: string;
   url: string;
   types?: string[];
+  id: number;
 };
 
 type PokemonListResponse = {
@@ -31,6 +33,8 @@ function Pokemon() {
   const [search, setSearch] = useState("");
 
   const [loading, setLoading] = useState(true);
+
+  const [favorite, setFavorite] = useState<Record<number, boolean>>({});
 
   const TYPE_COLORS: Record<string, string> = {
     fire: "bg-radial from-white to-red-500",
@@ -86,9 +90,9 @@ function Pokemon() {
     fetchPokemons();
   }, []);
 
-  // if (loading)
-  //   return <p className="text-3xl font-semibold py-10">Loading Pokemon...</p>;
-
+  const toggleFavorite = (id: number) => {
+    setFavorite((prev) => ({ ...prev, [id]: !prev[id] }));
+  };
   return (
     <div className="place-items-center">
       <h2 className="font-semibold text-3xl py-10">Pokemons</h2>
@@ -133,8 +137,16 @@ function Pokemon() {
                 <li
                   key={pokemon.name}
                   className={`
-                    active:scale-95 p-2 h-45 w-45 border-2 rounded-md place-items-center transition hover:scale-105 shadow-lg hover:shadow-xl ${bgColor}`}
+                    cursor-pointer relative p-2 h-45 w-45 border-2 rounded-md place-items-center transition hover:scale-105 shadow-lg hover:shadow-xl ${bgColor}`}
                 >
+                  <Icon
+                    onClick={() => toggleFavorite(pokemon.id)}
+                    icon={
+                      favorite[pokemon.id] ? "mdi:heart" : "mdi:heart-outline"
+                    }
+                    className="absolute top-4 right-4 w-6 h-6 transition hover:scale-105 text-white active:text-red-500"
+                  />
+
                   <img
                     src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${
                       pokemon.url.split("/").filter(Boolean).pop() ?? "0"
