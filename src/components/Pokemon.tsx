@@ -71,9 +71,10 @@ function Pokemon() {
           data.results.map(async (pokemon: Pokemon) => {
             const detailsRes = await fetch(pokemon.url);
             const details: PokemonDetailResponse = await detailsRes.json();
-
+            const id = Number(pokemon.url.split("/").filter(Boolean).pop());
             return {
               ...pokemon,
+              id,
               types: details.types.map((t) => t.type.name),
             };
           })
@@ -135,16 +136,26 @@ function Pokemon() {
 
               return (
                 <li
-                  key={pokemon.name}
+                  key={pokemon.id}
                   className={`
                     cursor-pointer relative p-2 h-45 w-45 border-2 rounded-md place-items-center transition hover:scale-105 shadow-lg hover:shadow-xl ${bgColor}`}
                 >
                   <Icon
-                    onClick={() => toggleFavorite(pokemon.id)}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      toggleFavorite(pokemon.id);
+                    }}
                     icon={
                       favorite[pokemon.id] ? "mdi:heart" : "mdi:heart-outline"
                     }
-                    className="absolute top-4 right-4 w-6 h-6 transition hover:scale-105 text-white active:text-red-500"
+                    className={`
+    absolute top-4 right-4 w-6 h-6 cursor-pointer transition-all
+    ${
+      favorite[pokemon.id]
+        ? "text-red-500 scale-110"
+        : "text-white hover:scale-110"
+    }
+  `}
                   />
 
                   <img
