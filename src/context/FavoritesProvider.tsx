@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { FavoritesContext } from "./favoritesContext";
-import type { Pokemon } from "./favoritesContext";
+import { FavoritesContext } from "./FavoritesContext";
+import type { Pokemon } from "./FavoritesContext";
 
 const FavoritesProvider = ({ children }: { children: React.ReactNode }) => {
   const [favorites, setFavorites] = useState<Pokemon[]>([]);
@@ -9,7 +9,7 @@ const FavoritesProvider = ({ children }: { children: React.ReactNode }) => {
     setFavorites((prev) =>
       prev.some((p) => p.id === pokemon.id)
         ? prev.filter((p) => p.id !== pokemon.id)
-        : [...prev, pokemon]
+        : [...prev, pokemon],
     );
   };
 

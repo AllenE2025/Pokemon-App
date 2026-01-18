@@ -67,7 +67,7 @@ function Pokemon() {
 
   const filteredPokemons = useMemo(() => {
     return allPokemons.filter((pokemon) =>
-      pokemon.name.toLowerCase().startsWith(search.toLowerCase())
+      pokemon.name.toLowerCase().startsWith(search.toLowerCase()),
     );
   }, [allPokemons, search]);
 
@@ -89,7 +89,7 @@ function Pokemon() {
               url,
               types: details.types.map((t) => t.type.name),
             };
-          })
+          }),
         );
 
         setAllPokemons(detailedPokemons);
@@ -104,7 +104,7 @@ function Pokemon() {
   }, []);
 
   return (
-    <div className="place-items-center">
+    <div className="">
       <h2 className="font-semibold text-3xl py-10">Pokemons</h2>
 
       <form onSubmit={(e) => e.preventDefault()}>
@@ -130,47 +130,53 @@ function Pokemon() {
       ) : filteredPokemons.length === 0 ? (
         <p className="font-semibold text-xl">No Pokémon Found</p>
       ) : (
-        <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
-          {filteredPokemons.map((pokemon) => {
-            const mainType = pokemon.types?.[0] ?? "normal";
-            const bgColor = TYPE_COLORS[mainType];
+        <div>
+          <p className="font-semibold text-xl">
+            {filteredPokemons.length} Pokemons listed
+          </p>{" "}
+          <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
+            {filteredPokemons.map((pokemon) => {
+              const mainType = pokemon.types?.[0] ?? "normal";
+              const bgColor = TYPE_COLORS[mainType];
 
-            return (
-              <li
-                key={pokemon.id}
-                className={`place-items-center relative p-2 border-2 rounded-md shadow-lg hover:scale-105 transition ${bgColor}`}
-              >
-                <Icon
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    toggleFavorite({
-                      id: pokemon.id,
-                      name: pokemon.name,
-                    });
-                  }}
-                  icon={
-                    isFavorite(pokemon.id) ? "mdi:heart" : "mdi:heart-outline"
-                  }
-                  className={`absolute top-4 right-4 w-6 h-6 cursor-pointer
+              return (
+                <li
+                  key={pokemon.id}
+                  className={`place-items-center relative p-2 border-2 rounded-md shadow-lg hover:scale-105 transition ${bgColor} select-none`}
+                >
+                  <Icon
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      toggleFavorite({
+                        id: pokemon.id,
+                        name: pokemon.name,
+                        types: pokemon.types,
+                      });
+                    }}
+                    icon={
+                      isFavorite(pokemon.id) ? "mdi:heart" : "mdi:heart-outline"
+                    }
+                    className={`absolute top-4 right-4 w-6 h-6 cursor-pointer
                     ${
                       isFavorite(pokemon.id)
                         ? "text-red-500 scale-110"
                         : "text-white hover:scale-110"
                     }`}
-                />
+                  />
 
-                <img
-                  src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemon.id}.png`}
-                  alt={pokemon.name}
-                  loading="lazy"
-                />
+                  <img
+                    src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemon.id}.png`}
+                    alt={pokemon.name}
+                    loading="lazy"
+                  />
 
-                <p className="capitalize font-semibold">{pokemon.name}</p>
-                <div className="capitalize">{pokemon.types?.join(" / ")}</div>
-              </li>
-            );
-          })}
-        </ul>
+                  <p className="capitalize font-semibold">{pokemon.name}</p>
+                  <div className="capitalize">{pokemon.types?.join(" / ")}</div>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
       )}
     </div>
   );

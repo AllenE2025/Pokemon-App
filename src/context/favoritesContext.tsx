@@ -3,6 +3,7 @@ import { createContext } from "react";
 export type Pokemon = {
   id: number;
   name: string;
+  types?: string[];
 };
 
 export type FavoritesContextType = {
@@ -12,5 +13,5 @@ export type FavoritesContextType = {
 };
 
 export const FavoritesContext = createContext<FavoritesContextType | null>(
-  null
+  null,
 );
