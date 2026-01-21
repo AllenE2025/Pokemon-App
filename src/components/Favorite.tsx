@@ -1,6 +1,8 @@
 import { Icon } from "@iconify/react";
 import { useFavorites } from "../hooks/useFavorites";
 
+/* ---------- Constants ---------- */
+
 const TYPE_COLORS: Record<string, string> = {
   fire: "bg-radial from-white to-red-500",
   water: "bg-radial from-white to-blue-500",
@@ -22,19 +24,29 @@ const TYPE_COLORS: Record<string, string> = {
   normal: "bg-radial from-white to-gray-400",
 };
 
+/* ---------- Component ---------- */
+
 const Favorites = () => {
   const { favorites, toggleFavorite } = useFavorites();
 
   return (
-    <div>
-      <h2 className="font-semibold text-3xl py-10">Favorite Pokemons</h2>
+    <div className="px-4 sm:px-6 lg:px-8">
+      <h2 className="text-3xl font-semibold tracking-tight mb-2">
+        Favorite Pokemons
+      </h2>
+
+      <p className="text-gray-600 mb-8 max-w-xl mx-auto">
+        Your personal Pokédex. All your favorite Pokémon, saved in one place.
+      </p>
 
       {favorites.length === 0 ? (
-        <p className="text-center mt-10">No favorite Pokémon yet</p>
+        <p className="text-center text-lg font-medium text-gray-500 mt-16">
+          No favorite Pokémon yet 😢
+        </p>
       ) : (
-        <div>
-          <p className="font-semibold text-xl">
-            {favorites.length} Favorite Pokemons
+        <>
+          <p className="font-medium text-lg mb-4 text-gray-700">
+            {favorites.length} Favorite Pokémon
           </p>
 
           <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
@@ -45,29 +57,48 @@ const Favorites = () => {
               return (
                 <li
                   key={pokemon.id}
-                  className={`place-items-center relative p-2 border-2 rounded-md shadow-lg hover:scale-105 transition ${bgColor} select-none`}
+                  className={`
+                    relative
+                    flex flex-col items-center
+                    p-3
+                    border-2 rounded-xl
+                    shadow-md
+                    transition-transform duration-200
+                    hover:scale-105
+                    select-none
+                    ${bgColor}
+                  `}
                 >
                   <Icon
                     icon="mdi:heart"
                     onClick={() => toggleFavorite(pokemon)}
-                    className="absolute top-3 right-3 w-6 h-6 text-red-500 cursor-pointer"
+                    className="
+                      absolute top-3 right-3
+                      w-6 h-6
+                      text-red-500
+                      cursor-pointer
+                      transition-transform
+                      hover:scale-110
+                    "
                   />
 
                   <img
                     src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemon.id}.png`}
                     alt={pokemon.name}
-                    className="mx-auto"
+                    loading="lazy"
                   />
 
-                  <p className="capitalize font-semibold mt-2">
+                  <p className="capitalize font-semibold mt-1">
                     {pokemon.name}
                   </p>
-                  <div className="capitalize">{pokemon.types?.join(" / ")}</div>
+                  <p className="capitalize text-sm text-gray-800">
+                    {pokemon.types?.join(" / ")}
+                  </p>
                 </li>
               );
             })}
           </ul>
-        </div>
+        </>
       )}
     </div>
   );

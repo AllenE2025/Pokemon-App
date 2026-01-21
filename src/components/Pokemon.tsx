@@ -94,7 +94,7 @@ function Pokemon() {
 
         setAllPokemons(detailedPokemons);
       } catch (error) {
-        console.error("Error fetching Pokemon:", error);
+        console.error("Error fetching Pokémon:", error);
       } finally {
         setLoading(false);
       }
@@ -104,18 +104,29 @@ function Pokemon() {
   }, []);
 
   return (
-    <div className="">
-      <h2 className="font-semibold text-3xl py-10">Pokemons</h2>
+    <div className="px-4 sm:px-6 lg:px-8">
+      <h2 className="text-3xl font-semibold tracking-tight mb-2">Pokemons</h2>
 
-      <form onSubmit={(e) => e.preventDefault()}>
+      <p className="text-gray-600 mb-8 max-w-xl mx-auto">
+        Gotta browse ’em all! Search, explore, and favorite Pokémon as you build
+        your dream collection.
+      </p>
+
+      <form onSubmit={(e) => e.preventDefault()} className="mb-10">
         <input
           type="text"
-          className="text-center border-2 rounded-md mb-10 py-2 px-8 shadow-lg
-            transition-all duration-300 ease-out
+          className="
+            w-full sm:w-auto
+            text-center
+            border-2 rounded-lg
+            px-8 py-2
+            shadow-md
+            transition-all duration-200
             focus:ring-2 focus:ring-red-500
-            focus:scale-[1.02]
-            outline-none"
-          placeholder="Search for pokemon"
+            focus:border-red-500
+            outline-none
+          "
+          placeholder="Search Pokémon"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
         />
@@ -128,12 +139,13 @@ function Pokemon() {
           ))}
         </ul>
       ) : filteredPokemons.length === 0 ? (
-        <p className="font-semibold text-xl">No Pokémon Found</p>
+        <p className="text-lg font-medium">No Pokémon Found</p>
       ) : (
-        <div>
-          <p className="font-semibold text-xl">
-            {filteredPokemons.length} Pokemons listed
-          </p>{" "}
+        <>
+          <p className="font-medium text-lg mb-4 text-gray-700">
+            {filteredPokemons.length} Pokémon listed
+          </p>
+
           <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
             {filteredPokemons.map((pokemon) => {
               const mainType = pokemon.types?.[0] ?? "normal";
@@ -142,7 +154,17 @@ function Pokemon() {
               return (
                 <li
                   key={pokemon.id}
-                  className={`place-items-center relative p-2 border-2 rounded-md shadow-lg hover:scale-105 transition ${bgColor} select-none`}
+                  className={`
+                    relative
+                    flex flex-col items-center
+                    p-3
+                    border-2 rounded-xl
+                    shadow-md
+                    transition-transform duration-200
+                    hover:scale-105
+                    select-none
+                    ${bgColor}
+                  `}
                 >
                   <Icon
                     onClick={(e) => {
@@ -156,12 +178,17 @@ function Pokemon() {
                     icon={
                       isFavorite(pokemon.id) ? "mdi:heart" : "mdi:heart-outline"
                     }
-                    className={`absolute top-4 right-4 w-6 h-6 cursor-pointer
-                    ${
-                      isFavorite(pokemon.id)
-                        ? "text-red-500 scale-110"
-                        : "text-white hover:scale-110"
-                    }`}
+                    className={`
+                      absolute top-3 right-3
+                      w-6 h-6
+                      cursor-pointer
+                      transition-transform
+                      ${
+                        isFavorite(pokemon.id)
+                          ? "text-red-500 scale-110"
+                          : "text-white hover:scale-110"
+                      }
+                    `}
                   />
 
                   <img
@@ -170,13 +197,17 @@ function Pokemon() {
                     loading="lazy"
                   />
 
-                  <p className="capitalize font-semibold">{pokemon.name}</p>
-                  <div className="capitalize">{pokemon.types?.join(" / ")}</div>
+                  <p className="capitalize font-semibold mt-1">
+                    {pokemon.name}
+                  </p>
+                  <p className="capitalize text-sm text-gray-800">
+                    {pokemon.types?.join(" / ")}
+                  </p>
                 </li>
               );
             })}
           </ul>
-        </div>
+        </>
       )}
     </div>
   );
