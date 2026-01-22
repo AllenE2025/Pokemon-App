@@ -1,9 +1,10 @@
-import "../App.css";
+import "../styles/App.css";
 
 import { useEffect, useMemo, useState } from "react";
 import PokemonSkeleton from "./PokemonSkeleton";
 import { Icon } from "@iconify/react";
 import { useFavorites } from "../hooks/useFavorites";
+import { TYPE_COLORS } from "../utils/typeColors";
 
 /* ---------- Types ---------- */
 
@@ -33,29 +34,6 @@ type PokemonDetailResponse = {
   types: PokemonType[];
 };
 
-/* ---------- Constants ---------- */
-
-const TYPE_COLORS: Record<string, string> = {
-  fire: "bg-radial from-white to-red-500",
-  water: "bg-radial from-white to-blue-500",
-  grass: "bg-radial from-white to-green-500",
-  electric: "bg-radial from-white to-yellow-400",
-  ice: "bg-radial from-white to-cyan-400",
-  fighting: "bg-radial from-white to-orange-600",
-  poison: "bg-radial from-white to-purple-500",
-  ground: "bg-radial from-white to-yellow-600",
-  flying: "bg-radial from-white to-indigo-400",
-  psychic: "bg-radial from-white to-pink-500",
-  bug: "bg-radial from-white to-lime-500",
-  rock: "bg-radial from-white to-stone-500",
-  ghost: "bg-radial from-white to-violet-600",
-  dark: "bg-radial from-white to-gray-800",
-  dragon: "bg-radial from-white to-indigo-700",
-  steel: "bg-radial from-white to-slate-400",
-  fairy: "bg-radial from-white to-pink-300",
-  normal: "bg-radial from-white to-gray-400",
-};
-
 /* ---------- Component ---------- */
 
 function Pokemon() {
@@ -74,7 +52,7 @@ function Pokemon() {
   useEffect(() => {
     const fetchPokemons = async () => {
       try {
-        const res = await fetch("https://pokeapi.co/api/v2/pokemon?limit=100");
+        const res = await fetch("https://pokeapi.co/api/v2/pokemon?limit=50");
         const data: PokemonListResponse = await res.json();
 
         const detailedPokemons: Pokemon[] = await Promise.all(

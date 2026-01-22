@@ -1,5 +1,5 @@
 import { Navigate, Route, Routes } from "react-router-dom";
-import "./App.css";
+import "./styles/App.css";
 import NavBar from "./components/NavBar";
 import Pokemon from "./components/Pokemon";
 import Favorite from "./components/Favorite";
@@ -13,7 +13,7 @@ function App() {
     >
       <NavBar />
 
-      <h1 className="font-bold text-4xl">Welcome To Pokemon App</h1>
+      {/* <h1 className="font-bold text-4xl">Welcome To Pokemon App</h1> */}
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/pokemon" element={<Pokemon />} />
