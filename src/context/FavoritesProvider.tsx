@@ -1,9 +1,18 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FavoritesContext } from "./FavoritesContext";
 import type { Pokemon } from "./FavoritesContext";
 
 const FavoritesProvider = ({ children }: { children: React.ReactNode }) => {
-  const [favorites, setFavorites] = useState<Pokemon[]>([]);
+  // 1️⃣ Load from localStorage once
+  const [favorites, setFavorites] = useState<Pokemon[]>(() => {
+    const stored = localStorage.getItem("favorites");
+    return stored ? JSON.parse(stored) : [];
+  });
+
+  // 2️⃣ Save to localStorage on change
+  useEffect(() => {
+    localStorage.setItem("favorites", JSON.stringify(favorites));
+  }, [favorites]);
 
   const toggleFavorite = (pokemon: Pokemon) => {
     setFavorites((prev) =>
