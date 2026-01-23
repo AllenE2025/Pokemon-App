@@ -14,28 +14,28 @@ function Home() {
 
         <ul className="space-y-3 text-gray-700">
           <li>
-            🔍 <strong>Browse Pokémon</strong>
+            <strong>Browse Pokémon</strong>
             <br />
             Explore a complete list of Pokémon with their types, abilities, and
             basic stats.
           </li>
 
           <li>
-            ⭐ <strong>Save Your Favorites</strong>
+            <strong>Save Your Favorites</strong>
             <br />
             Mark Pokémon as favorites and quickly access them in your favorites
             page.
           </li>
 
           <li>
-            🎨 <strong>Type-Based Design</strong>
+            <strong>Type-Based Design</strong>
             <br />
             Each Pokémon card adapts its color based on its primary type for a
             more immersive experience.
           </li>
 
           <li>
-            ⚡ <strong>Fast & Responsive</strong>
+            <strong>Fast & Responsive</strong>
             <br />
             Built with modern web technologies to ensure smooth performance
             across devices.

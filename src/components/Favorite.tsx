@@ -19,7 +19,7 @@ const Favorites = () => {
 
       {favorites.length === 0 ? (
         <p className="text-center text-lg font-medium text-gray-500 mt-16">
-          No favorite Pokémon yet 😢
+          No favorite Pokémon yet 
         </p>
       ) : (
         <>
