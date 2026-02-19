@@ -1,73 +1,52 @@
-# React + TypeScript + Vite
+# Pokémon App 🎮
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A responsive Pokémon encyclopedia built with React and TypeScript. Browse the full Pokédex, dig into detailed stats, and save your favorite Pokémon — all powered by the free [PokéAPI](https://pokeapi.co/).
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Features
 
-## React Compiler
+- **Browse & Search** — Explore the entire Pokédex and search for any Pokémon by name
+- **Detailed Stats** — View base stats, types, abilities, and moves for each Pokémon
+- **Favorites** — Save and manage your personal list of favorite Pokémon
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+## Tech Stack
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+| Technology | Purpose |
+|---|---|
+| React | UI framework |
+| TypeScript | Type-safe development |
+| Vite | Build tool & dev server |
+| PokéAPI | Pokémon data source |
+| CSS | Styling |
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+---
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## Project Structure
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```
+src/
+├── components/       # Reusable UI components
+├── pages/            # Page-level components
+├── hooks/            # Custom React hooks
+├── types/            # TypeScript type definitions
+└── App.tsx           # Root component
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+---
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## API Reference
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+This app uses the [PokéAPI](https://pokeapi.co/) — a free, open REST API for Pokémon data. No API key required.
+
+Base URL: `https://pokeapi.co/api/v2/`
+
+---
+
+## License
+
+This project is open source and available under the [MIT License](LICENSE).
+
+> Pokémon and all related names are trademarks of Nintendo / Game Freak. This is a fan-made project and is not affiliated with or endorsed by Nintendo.
